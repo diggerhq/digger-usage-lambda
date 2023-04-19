@@ -12,7 +12,7 @@ TOKEN = os.environ["TOKEN"]
 SLACK_WEBHOOK = os.environ["SLACK_WEBHOOK"]
 client = boto3.client("dynamodb")
 
-ignore_events_from = ["diggerhq", "Spartakovic"]
+ignore_events_from = ["diggerhq", "Spartakovic", "motatoes", "veziak", "ZIJ", "UtpalJayNadiger"]
 repos_hashes_to_ignore_events_from = [sha256(org.encode("utf-8")).hexdigest() for org in ignore_events_from]
 
 def app(event, context):
