@@ -25,7 +25,7 @@ def app(event, context):
     timestamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     userid = payload.get("userid")
 
-    if userid in repos_hashes_to_ignore_events_from:
+    if userid in repos_hashes_to_ignore_events_from or userid in ignore_events_from:
         return {"statusCode": 200, "body": "ok"}
 
     action = payload.get("action")
