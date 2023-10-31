@@ -5,12 +5,16 @@ import boto3
 from datetime import datetime
 from hashlib import sha256
 import requests
+import segment.analytics as analytics
 
 
 USAGE_TABLE = os.environ["USAGE_TABLE"]
 TOKEN = os.environ["TOKEN"]
 SLACK_WEBHOOK = os.environ["SLACK_WEBHOOK"]
+SEGMENT_KEY = os.environ["SEGMENT_KEY"]
 client = boto3.client("dynamodb")
+
+analytics.write_key = SEGMENT_KEY
 
 ignore_events_from = ["diggerhq", "Spartakovic", "motatoes", "veziak", "ZIJ", "UtpalJayNadiger"]
 repos_hashes_to_ignore_events_from = [sha256(org.encode("utf-8")).hexdigest() for org in ignore_events_from]
@@ -30,6 +34,10 @@ def app(event, context):
 
     action = payload.get("action")
     event_name = payload.get("event_name")
+
+    analytics.track(userid, action, {
+        'event_name': event_name
+    })
 
     client.put_item(
         TableName=USAGE_TABLE,
