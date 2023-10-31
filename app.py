@@ -32,6 +32,8 @@ def app(event, context):
     if userid in repos_hashes_to_ignore_events_from or userid in ignore_events_from:
         return {"statusCode": 200, "body": "ok"}
 
+    analytics.identify(userid)
+
     action = payload.get("action")
     event_name = payload.get("event_name")
 
