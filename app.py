@@ -16,7 +16,8 @@ client = boto3.client("dynamodb")
 
 analytics.write_key = SEGMENT_KEY
 
-ignore_events_from = ["diggerhq", "Spartakovic", "motatoes", "veziak", "ZIJ", "UtpalJayNadiger", "carcunha", "terakoya76"]
+ignore_events_from = ["diggerhq", "Spartakovic", "motatoes", "veziak", "ZIJ", "UtpalJayNadiger", "carcunha", "terakoya76", 
+                      "3f6af011762159ab960bfe3f2d867123b478478ade030a89b94ebaf126d2af26"]
 repos_hashes_to_ignore_events_from = [sha256(org.encode("utf-8")).hexdigest() for org in ignore_events_from]
 
 def app(event, context):
